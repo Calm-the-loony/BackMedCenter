@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    CreateDateColumn,
+    UpdateDateColumn
+} from "typeorm";
 
 export enum UserTypes {
     DOCTOR = 'doctor',
@@ -12,7 +18,7 @@ export class User {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column({ type: 'varchar', length: 125, nullable: false })
+    @Column({ type: 'varchar', length: 125, unique: true, nullable: false })
     email!: string;
 
     @Column({ type: 'text', nullable: false })
@@ -24,10 +30,10 @@ export class User {
     @Column({ type: 'boolean', nullable: true, default: false })
     isAdmin!: boolean;
 
-    @Column({ type: 'date', nullable: false, default: '23-12-2025' })
+    @CreateDateColumn({ type: 'date', nullable: false })
     createdAt!: Date;
 
-    @Column({ type: 'date', nullable: false, default: '23-12-2025' })
+    @UpdateDateColumn({ type: 'date', nullable: true })
     updatedAt!: Date;
 
     @Column({ type: 'enum', enum: UserTypes, default: UserTypes.PACIENT, })
