@@ -13,7 +13,7 @@ export const dbSource = new DataSource({
     synchronize: false,
     logging: true,
     entities: [
-        path.join(path.join(process.cwd(), "dist/src/module/**/*.js")),
+        path.join(process.cwd(), "dist/src/module/**/*.js"),
     ],
     subscribers: [],
     migrations: [path.join(process.cwd(), 'dist/src/db/migrations/*.js')],
