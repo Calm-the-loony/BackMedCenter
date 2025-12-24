@@ -6,12 +6,7 @@ import {
     UpdateDateColumn
 } from "typeorm";
 
-export enum UserTypes {
-    DOCTOR = 'doctor',
-    PACIENT = 'pacient',
-    REGISTER = 'register',
-    MANAGER = 'manager'
-}
+import { UserTypes } from "../../../utils/shared/entities_enums.js";
 
 @Entity({ name: 'users' })
 export class User {

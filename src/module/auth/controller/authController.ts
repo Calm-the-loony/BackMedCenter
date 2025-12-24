@@ -32,6 +32,7 @@ authRouter.post("/register", async (req: Request, res: Response) => {
           schema: { $ref: '#/definitions/AuthReg' }
       }
      */
+
     const userData: User = req.body;
     const newUser = await UserService.createUser(userData);
     if (newUser) {

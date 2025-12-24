@@ -1,11 +1,7 @@
-import { UserTypes } from "../entity/User.entity.js";
+import { UserTypes } from "../../../utils/shared/entities_enums.js";
+import { RegUserInfo } from "../../auth/dto/Auth.dto.js";
 
-export interface User {
-    email: string;
-    password: string;
-}
-
-export interface UserInfo extends User {
+export interface UserInfo extends RegUserInfo {
     fullName: string;
     isAdmin: boolean;
     createdAt: string;
