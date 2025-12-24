@@ -41,7 +41,7 @@
             "description": "Пользовательские данные для регистрации",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/RegUserData"
+              "$ref": "#/definitions/AuthUserData"
             }
           }
         ],
@@ -49,13 +49,77 @@
           "201": {
             "description": "Пользователь был зарегистрирован",
             "schema": {
-              "$ref": "#/definitions/AuthReg"
+              "$ref": "#/definitions/Message"
             }
           },
           "400": {
             "description": "Не удалось зарегистрировать пользователя",
             "schema": {
-              "$ref": "#/definitions/AuthReg"
+              "$ref": "#/definitions/Message"
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Авторизация пользователя",
+        "description": "Авторизация пользователя с получением токенов",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Пользовательские данные для авторизации",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthUserData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Пользователь был успешно авторизован",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refs": {
+                  "type": "string",
+                  "example": "#/definitions/TokensData"
+                }
+              },
+              "required": [
+                "refs"
+              ],
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Не удалось аутентифицировать пользователя",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refs": {
+                  "type": "string",
+                  "example": "#/definitions/Message"
+                }
+              },
+              "required": [
+                "refs"
+              ],
+              "xml": {
+                "name": "main"
+              }
             }
           }
         }
@@ -63,7 +127,7 @@
     }
   },
   "definitions": {
-    "AuthReg": {
+    "Message": {
       "type": "object",
       "properties": {
         "message": {
@@ -72,7 +136,7 @@
         }
       }
     },
-    "RegUserData": {
+    "AuthUserData": {
       "type": "object",
       "properties": {
         "email": {

@@ -26,11 +26,11 @@ authRouter.post("/register", async (req: Request, res: Response) => {
 
       #swagger.responses[201] = {
           description: 'Пользователь был зарегистрирован',
-          schema: { $ref: '#/definitions/AuthReg' }
+          schema: { $ref: '#/definitions/Message' }
       }
       #swagger.responses[400] = {
           description: 'Не удалось зарегистрировать пользователя',
-          schema: { $ref: '#/definitions/AuthReg' }
+          schema: { $ref: '#/definitions/Message' }
       }
      */
 
@@ -59,6 +59,15 @@ authRouter.post("/login", async (req: Request, res: Response) => {
             schema: {
                 $ref: '#/definitions/AuthUserData'
             }
+        }
+
+        #swagger.responses[200] = {
+          description: 'Пользователь был успешно авторизован',
+          schema: { $refs: '#/definitions/TokensData' }
+        }
+        #swagger.responses[401] = {
+          description: 'Не удалось аутентифицировать пользователя',
+          schema: { $refs: '#/definitions/Message' }
         }
     */
 

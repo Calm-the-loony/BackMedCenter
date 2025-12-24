@@ -8,6 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const outputFile = path.join(__dirname, "..", "..", "..", "..", "swagger.json");
 const endpointsFiles = await glob(
   join(resolve() as string, "dist/src/module/*/controller/*.js"),
+  // @ts-ignore
   () => {},
 );
 
@@ -27,7 +28,7 @@ const doc = {
     },
   ],
   definitions: {
-    AuthReg: {
+    Message: {
       message: "Сообщение",
     },
     AuthUserData: {
