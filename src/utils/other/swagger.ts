@@ -6,7 +6,7 @@ import { join, resolve } from "node:path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const outputFile = path.join(__dirname, "..", "..", "..", "..", "swagger.json");
-const endpointsFiles = await glob(join(resolve(), 'dist/src/module/*/controller/*.js'));
+const endpointsFiles = await glob(join(resolve() as string, 'dist/src/module/*/controller/*.js'), () => {});
 
 const doc = {
     info: {
