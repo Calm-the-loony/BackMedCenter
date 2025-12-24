@@ -2,7 +2,7 @@ import { Repository } from "typeorm";
 
 import { dbSource } from '../../../db/data-source.js';
 import { User } from "../entity/User.entity.js";
-import { User as UserDTO } from "../dto/User.dto.js"
+import { RegUserInfo } from "../../auth/dto/Auth.dto.js";
 import { hashPassword } from "../../../utils/other/hash_password.js";
 
 
@@ -10,7 +10,7 @@ export class UserService {
 
     protected static repository: Repository<User> = dbSource.getRepository(User);
 
-    static async createUser(userData: UserDTO): Promise<User> {
+    static async createUser(userData: RegUserInfo): Promise<User> {
 
         const newHashedPassword = await hashPassword(userData.password);
         userData.password = newHashedPassword;

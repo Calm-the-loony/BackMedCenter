@@ -56,6 +56,6 @@ const doc = {
 
 swaggerAutogen(/* options */)(outputFile, endpointsFiles, doc).then(() => {
     console.log('Swagger was generated successfully.');
-}).catch((err) => {
+}).catch(() => {
     console.log("Swagger doesn't generated successfully.");
 });
