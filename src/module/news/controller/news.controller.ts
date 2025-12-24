@@ -9,6 +9,24 @@ import { JwtPayload } from "jsonwebtoken";
 export const newsRouter = Router();
 
 newsRouter.post('/create', authMiddleware, async (req: Request & JwtPayload, res: Response) => {
+    /*
+        #swagger.method = 'POST'
+        #swagger.tags = ['News']
+        #swagger.summary = 'Создание новости'
+        #swagger.description = 'Создание новой новости администратором'
+        #swagger.produces = ['application/json']
+        #swagger.consumes = ['application/json']
+
+        #swagger.responses[200] = {
+            description: 'Новость была создана',
+            schema: { $ref: '#/definitions/Message' }
+        }
+        #swagger.responses[400] = {
+            description: 'Не удалось создать новость',
+            schema: { $ref: '#/definitions/Message' }
+        }
+    */
+
     const newsData: News = req.body;
     const newsIsCreated = await NewsService.createNews(newsData, req?.token);
 
@@ -17,4 +35,40 @@ newsRouter.post('/create', authMiddleware, async (req: Request & JwtPayload, res
     }
 
     return res.status(400).send({ message: 'Не удалось создать новость' });
+});
+
+newsRouter.delete("/delete", authMiddleware, async (req: Request & JwtPayload, res: Response) => {
+    /*
+        #swagger.method = 'DELETE'
+        #swagger.tags = ['News']
+        #swagger.summary = 'Удаление новости'
+        #swagger.description = 'Удаление новости администратором'
+        #swagger.produces = ['application/json']
+        #swagger.consumes = ['application/json']
+
+        #swagger.parameters['id'] = {
+            in: 'query',
+            description: 'Идентификатор новости',
+            required: true,
+            type: 'integer'
+        }
+
+        #swagger.responses[200] = {
+            description: 'Новость была удалена',
+            schema: { $ref: '#/definitions/Message' }
+        }
+        #swagger.responses[400] = {
+            description: 'Не удалось удалить новость',
+            schema: { $ref: '#/definitions/Message' }
+        }
+    */
+
+    const { id } = req.query;
+    const newsIsDeleted = await NewsService.deleteNews(Number(id), req?.token);
+
+    if (newsIsDeleted) {
+        return res.status(200).send({ message: 'Новость была удалена'});
+    }
+
+    return res.status(400).send({ message: 'Не удалось удалить новость' });
 })

@@ -8,6 +8,16 @@ import { generateToken, TokenType, verifyToken } from "@/utils/other/jwt.js";
 export class AuthService {
   private static repository = dbSource.getRepository(User);
 
+  static async userIsAdmin(email: string) {
+    const user = await this.repository.findOne({ where: { email } }) as User;
+
+    if (user) {
+      return user;
+    }
+
+    return false;
+  }
+
   static async login(userData: RegUserInfo) {
     const user = await this.repository.findOne({
       where: { email: userData.email },

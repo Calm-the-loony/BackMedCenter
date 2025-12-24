@@ -21,22 +21,6 @@
     "http"
   ],
   "paths": {
-    "/create": {
-      "post": {
-        "description": "",
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
     "/register": {
       "post": {
         "tags": [
@@ -197,6 +181,82 @@
                 "name": "main"
               }
             }
+          }
+        }
+      }
+    },
+    "/create": {
+      "post": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Создание новости",
+        "description": "Создание новой новости администратором",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Новость была создана",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Не удалось создать новость",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/delete": {
+      "delete": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Удаление новости",
+        "description": "Удаление новости администратором",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Идентификатор новости",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Новость была удалена",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "400": {
+            "description": "Не удалось удалить новость",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
