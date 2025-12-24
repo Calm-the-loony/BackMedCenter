@@ -124,6 +124,66 @@
           }
         }
       }
+    },
+    "/me": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Проверка аутентифицированного пользователя",
+        "description": "Проверка аутентифицированного пользователя путем декодирования токена",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Пользователь был аутентифицирован",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refs": {
+                  "type": "string",
+                  "example": "#/definitions/VerifyUser"
+                }
+              },
+              "required": [
+                "refs"
+              ],
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не прошел аутентификацию",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refs": {
+                  "type": "string",
+                  "example": "#/definitions/VerifyUser"
+                }
+              },
+              "required": [
+                "refs"
+              ],
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -133,6 +193,15 @@
         "message": {
           "type": "string",
           "example": "Сообщение"
+        }
+      }
+    },
+    "VerifyUser": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "test_temail@mail.ru"
         }
       }
     },

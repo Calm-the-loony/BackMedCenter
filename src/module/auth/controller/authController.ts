@@ -85,3 +85,38 @@ authRouter.post("/login", async (req: Request, res: Response) => {
     message: "Не удалось аутентифицировать пользователя",
   });
 });
+
+authRouter.post("/me", async (req: Request, res: Response) => {
+  /*
+    #swagger.method = 'Post'
+    #swagger.tags = ['Auth']
+    #swagger.summary = 'Проверка аутентифицированного пользователя'
+    #swagger.description = 'Проверка аутентифицированного пользователя путем декодирования токена'
+    #swagger.produces = ['application/json']
+    #swagger.consumes = ['application/json']
+
+    #swagger.responses[200] = {
+      description: 'Пользователь был аутентифицирован',
+      schema: { $refs: '#/definitions/VerifyUser' }
+    }
+    #swagger.responses[401] = {
+      description: 'Пользователь не прошел аутентификацию',
+      schema: { $refs: '#/definitions/VerifyUser' }
+    }
+  */
+
+  const verifyUser = AuthService.verifyMe((req.headers.authorization ?? '')?.split('Bearer ')[1] ?? '');
+  if (verifyUser) {
+    return res.status(200).json(
+        {
+          message: 'Пользователь был аутентифицирован'
+        }
+    )
+  }
+
+  return res.status(401).json(
+      {
+        message: 'Пользователь не прошел аутентификацию'
+      }
+  )
+})

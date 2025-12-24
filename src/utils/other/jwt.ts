@@ -1,4 +1,4 @@
-import jwt, { SignOptions } from "jsonwebtoken";
+import jwt, { SignOptions, VerifyOptions } from "jsonwebtoken";
 
 import { apiConfig } from "@/conf/apiConfig.js";
 
@@ -20,11 +20,14 @@ export function generateToken(data: Record<string, any>, tokenType: TokenType) {
   return token;
 }
 
-export async function verifyToken(token: string, tokenType: TokenType) {
+export function verifyToken(token: string, tokenType: TokenType) {
   try {
     const tokenData = jwt.verify(
       token,
       tokenType === "access" ? apiConfig.access_token : apiConfig.refresh_token,
+      {
+        algorithms: [apiConfig.algorithm]
+      } as VerifyOptions,
     );
     return tokenData;
   } catch (e) {

@@ -31,6 +31,9 @@ const doc = {
     Message: {
       message: "Сообщение",
     },
+    VerifyUser: {
+      email: 'test_temail@mail.ru'
+    },
     AuthUserData: {
       email: "test@mail.ru",
       password: "test_user_password",
