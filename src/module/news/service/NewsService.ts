@@ -10,7 +10,6 @@ export class NewsService {
 
     static async createNews(news: News, userData: { email: string }) {
         const user = await dbSource.getRepository(User).findOne({ where: { email: userData.email } });
-
         if (user?.isAdmin) {
             news.userid = user.id;
             await this.repository.create(news);

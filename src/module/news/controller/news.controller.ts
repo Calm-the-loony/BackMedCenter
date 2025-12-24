@@ -3,13 +3,14 @@ import type { Request, Response } from "express";
 
 import { News } from "@/module/news/dto/News.dto.js";
 import { NewsService } from "@/module/news/service/NewsService.js";
+import { authMiddleware } from "@/utils/middlewares/authMiddleware.js";
+import { JwtPayload } from "jsonwebtoken";
 
-export const newsController = new Router();
+export const newsRouter = Router();
 
-newsController.post('/create', async (req: Request, res: Response) => {
+newsRouter.post('/create', authMiddleware, async (req: Request & JwtPayload, res: Response) => {
     const newsData: News = req.body;
-    const tokenData = '';
-    const newsIsCreated = await NewsService.createNews(newsData, tokenData);
+    const newsIsCreated = await NewsService.createNews(newsData, req?.token);
 
     if (newsIsCreated) {
         return res.status(201).send({ message: 'Новость была создана' });

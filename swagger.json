@@ -21,6 +21,22 @@
     "http"
   ],
   "paths": {
+    "/create": {
+      "post": {
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
     "/register": {
       "post": {
         "tags": [
