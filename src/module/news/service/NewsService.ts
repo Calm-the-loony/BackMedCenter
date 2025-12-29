@@ -62,4 +62,8 @@ export class NewsService {
             where
         })
     }
+
+    static async updateNews(idNews: number, dataToUpdate: NewsFilter) {
+        return await this.repository.update(idNews, dataToUpdate);
+    }
 }

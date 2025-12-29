@@ -21,115 +21,6 @@
     "http"
   ],
   "paths": {
-    "/create": {
-      "post": {
-        "tags": [
-          "News"
-        ],
-        "summary": "Создание новости",
-        "description": "Создание новости по выбранной теме",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Данные новой новости",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreateNews"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Новость была создана",
-            "schema": {
-              "$ref": "#/definitions/Message"
-            }
-          },
-          "400": {
-            "description": "Не удалось создать новость",
-            "$ref": "#/definitions/Message"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/delete": {
-      "delete": {
-        "tags": [
-          "News"
-        ],
-        "summary": "Удаление новости",
-        "description": "Удаление новости администратором",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "description": "Идентификатор новости",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Новость была удалена",
-            "schema": {
-              "$ref": "#/definitions/Message"
-            }
-          },
-          "400": {
-            "description": "Не удалось удалить новость",
-            "schema": {
-              "$ref": "#/definitions/Message"
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/list": {
-      "get": {
-        "tags": [
-          "News"
-        ],
-        "summary": "Список новостей",
-        "description": "Получения списка новостей",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/NewsList"
-            }
-          },
-          "400": {
-            "$ref": "#/definitions/List",
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
     "/register": {
       "post": {
         "tags": [
@@ -293,6 +184,170 @@
           }
         }
       }
+    },
+    "/create": {
+      "post": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Создание новости",
+        "description": "Создание новой новости администратором",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Новость была создана",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Не удалось создать новость",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/list": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Список новостей",
+        "description": "Получения списка новостей по фильтрам",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Фильтры доя получения новостей",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/NewsFilters"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/NewsList"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/List"
+            }
+          }
+        }
+      }
+    },
+    "/update": {
+      "put": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Обновление информации по новости",
+        "description": "Частичное или полное обновление информации по новосте",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Поля под обновление",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/NewsFilters"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Информация о новосте была обновлена",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "400": {
+            "description": "Не удалось обновить информацию по новости",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/delete": {
+      "delete": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Удаление новости",
+        "description": "Удаление новости администратором",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Идентификатор новости",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Новость была удалена",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "400": {
+            "description": "Не удалось удалить новость",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -408,6 +463,10 @@
           "type": "array",
           "example": [],
           "items": {}
+        },
+        "total": {
+          "type": "number",
+          "example": 0
         }
       }
     },
@@ -449,6 +508,43 @@
               }
             }
           }
+        },
+        "total": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "NewsFilters": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Заголовок поиска"
+        },
+        "description": {
+          "type": "string",
+          "example": "Описание поиска"
+        },
+        "type": {
+          "default": "GENERAL",
+          "type": "string",
+          "enum": [
+            "GENERAL",
+            "MED",
+            "SOCIAL",
+            "EVENTS",
+            "CONFERENCE",
+            "PERSONAL"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "24-12-2025"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "24-12-2025"
         }
       }
     }

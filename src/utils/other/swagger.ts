@@ -80,19 +80,19 @@ const doc = {
           createdAt: "24-12-2025",
           updatedAt: "24-12-2025",
         }
-      ]
+      ],
+      total: 1
     },
-    total: 1
-  },
-  NewsFilters: {
-    title: 'Заголовок поиска',
-    description: 'Описание поиска',
-    type: {
-      default: "GENERAL",
-      "@enum": ["GENERAL", "MED", "SOCIAL", "EVENTS", "CONFERENCE", "PERSONAL"]
+    NewsFilters: {
+      title: 'Заголовок поиска',
+      description: 'Описание поиска',
+      type: {
+        default: "GENERAL",
+        "@enum": ["GENERAL", "MED", "SOCIAL", "EVENTS", "CONFERENCE", "PERSONAL"]
+      },
+      createdAt: "24-12-2025",
+      updatedAt: "24-12-2025"
     },
-    createdAt: "24-12-2025",
-    updatedAt: "24-12-2025"
   },
   host: "localhost:8088",
   schemes: ["http"],
