@@ -97,7 +97,7 @@ class AuthController {
     });
   }
 
-  static register(req: Request, res: Response) {
+  static async register(req: Request, res: Response) {
     const userData: RegUserInfo = req.body;
     const newUser = await UserService.createUser(userData);
     if (newUser) {
@@ -107,7 +107,7 @@ class AuthController {
     }
   }
 
-  static login(req: Request, res: Response) {
+  static async login(req: Request, res: Response) {
 
     const userData: RegUserInfo = req.body;
     const [accessToken, refreshToken] = await AuthService.login(userData);
