@@ -10,6 +10,8 @@ import {postAuthMiddleware} from "@/utils/middlewares/authMiddleware.js";
 import { authRouter } from "@/module/auth/controller/auth.controller.js";
 import { newsRouter } from "@/module/news/controller/news.controller.js";
 import { userRouter } from "@/module/users/controller/user.controller.js";
+import { pacientsRouter } from "@/module/pacients/controller/pacients.controller.js";
+import { analysRouter } from "@/module/analysis/controller/analys.controller.js";
 
 const require = createRequire(import.meta.url);
 const app = express();
@@ -25,6 +27,8 @@ app.use(
 app.use("/auth", authRouter);
 app.use('/news', newsRouter);
 app.use('/users', userRouter);
+app.use('/analys', analysRouter);
+app.use('/pacients', pacientsRouter);
 
 // Post middlewarees
 app.use(postAuthMiddleware);
