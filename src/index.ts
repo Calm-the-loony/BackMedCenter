@@ -4,7 +4,7 @@ import { join, resolve } from "node:path";
 
 import { apiConfig } from "@/conf/apiConfig.js";
 import { dbSource } from "@/db/data-source.js";
-import {postAuthMiddleware} from "@/utils";
+import { postAuthMiddleware } from "@/utils";
 
 import { authRouter } from "@/module/auth";
 import { newsRouter } from "@/module/news";

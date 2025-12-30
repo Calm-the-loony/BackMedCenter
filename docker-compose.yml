@@ -7,6 +7,8 @@ services:
     depends_on:
         med_db:
           condition: service_healthy
+        med_rd:
+          condition: service_started
     environment:
       MED_DB_HOST: med_db
       MED_DB_PORT: 5432
@@ -18,6 +20,7 @@ services:
       ACCESS_EXPIRE_TIME_LIFE: 10
       REFRESH_EXPIRE_TIME_LIFE: 30
       ALGORITHM: HS256
+      REDIS_URL: redis://med_rd:6379
     networks:
       - med
     volumes:
@@ -51,6 +54,8 @@ services:
       - ./cache:/data
     networks:
       - med
+    depends_on:
+      - med_db
 
 networks:
   med:
