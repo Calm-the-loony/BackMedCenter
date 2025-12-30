@@ -22,7 +22,9 @@ export class UserService {
     const user = await this.repository.findOne({ where: { email } });
 
     return Object.fromEntries(
-        Object.entries(user as User).filter(([key, value]) => !['password'].includes(key))
+      Object.entries(user as User).filter(
+        ([key, value]) => !["password"].includes(key),
+      ),
     );
   }
 

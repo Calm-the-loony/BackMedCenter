@@ -1,13 +1,13 @@
-import {NewsTypes} from "@/utils";
+import { NewsTypes } from "@/utils";
 
 export interface News {
-    title: string;
-    description: string;
-    type: NewsTypes;
-    userid?: number;
+  title: string;
+  description: string;
+  type: NewsTypes;
+  userid?: number;
 }
 
 export interface NewsFilter extends News {
-    createDate?: Date;
-    updateDate?: Date;
+  createDate?: Date;
+  updateDate?: Date;
 }

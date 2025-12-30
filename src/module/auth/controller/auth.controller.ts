@@ -4,13 +4,12 @@ import { UserService } from "@/module/users";
 import { RegUserInfo } from "@/module/auth";
 import { AuthService } from "@/module/auth";
 
-
 class AuthController {
   router: Router;
 
   constructor() {
-      this.router = Router();
-      this.initRoutes();
+    this.router = Router();
+    this.initRoutes();
   }
 
   initRoutes(): void {
@@ -102,13 +101,12 @@ class AuthController {
     const newUser = await UserService.createUser(userData);
     if (newUser) {
       return res
-          .status(201)
-          .json({ message: "Пользователь был зарегистрирован" });
+        .status(201)
+        .json({ message: "Пользователь был зарегистрирован" });
     }
   }
 
   static async login(req: Request, res: Response) {
-
     const userData: RegUserInfo = req.body;
     const [accessToken, refreshToken] = await AuthService.login(userData);
 
@@ -125,20 +123,18 @@ class AuthController {
   }
 
   static me(req: Request, res: Response) {
-    const verifyUser = AuthService.verifyMe((req.headers.authorization ?? '')?.split('Bearer ')[1] ?? '');
+    const verifyUser = AuthService.verifyMe(
+      (req.headers.authorization ?? "")?.split("Bearer ")[1] ?? "",
+    );
     if (verifyUser) {
-      return res.status(200).json(
-          {
-            message: 'Пользователь был аутентифицирован'
-          }
-      )
+      return res.status(200).json({
+        message: "Пользователь был аутентифицирован",
+      });
     }
 
-    return res.status(401).json(
-        {
-          message: 'Пользователь не прошел аутентификацию'
-        }
-    )
+    return res.status(401).json({
+      message: "Пользователь не прошел аутентификацию",
+    });
   }
 }
 

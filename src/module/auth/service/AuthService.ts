@@ -9,7 +9,7 @@ export class AuthService {
   private static repository = dbSource.getRepository(User);
 
   static async userIsAdmin(email: string) {
-    const user = await this.repository.findOne({ where: { email } }) as User;
+    const user = (await this.repository.findOne({ where: { email } })) as User;
 
     if (user) {
       return user;
@@ -37,7 +37,7 @@ export class AuthService {
     return [];
   }
 
-  static verifyMe(token: string, tokenType: TokenType = 'access'): boolean {
+  static verifyMe(token: string, tokenType: TokenType = "access"): boolean {
     return !!verifyToken(token, tokenType);
   }
 }

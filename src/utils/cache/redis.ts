@@ -3,39 +3,40 @@ import { createClient } from "redis";
 import { dbConfig } from "@/conf/dbConfig";
 
 class CacheClient {
+  private client: any;
 
-    private client: any;
+  constructor() {
+    this.connect();
+  }
 
-    constructor() {
-        this.connect();
-    }
+  async connect() {
+    this.client = await createClient({ url: dbConfig.redis_url }).connect();
+  }
 
-    async connect() {
-        this.client = await createClient({ url: dbConfig.redis_url }).connect();
-    }
+  get redisClient() {
+    return this.client;
+  }
 
-    get redisClient() {
-        return this.client;
-    }
+  cache(key: string) {
+    const client = this.client;
 
-    cache(key: string) {
+    return function (
+      target: any,
+      propertyKey: string,
+      descriptor: PropertyDescriptor,
+    ) {
+      const cacheData = client.get(key);
+      const orMethod = descriptor.value;
 
-        const client = this.client;
+      console.log("test #1");
 
-        return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+      if (cacheData) {
+        return descriptor;
+      }
 
-            const cacheData = client.get(key);
-            const orMethod = descriptor.value;
-
-            console.log("test #1");
-
-            if (cacheData) {
-                return descriptor;
-            }
-
-            return descriptor;
-
-        }}
+      return descriptor;
+    };
+  }
 }
 
 export default new CacheClient();

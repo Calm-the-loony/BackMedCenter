@@ -26,7 +26,7 @@ export function verifyToken(token: string, tokenType: TokenType) {
       token,
       tokenType === "access" ? apiConfig.access_token : apiConfig.refresh_token,
       {
-        algorithms: [apiConfig.algorithm]
+        algorithms: [apiConfig.algorithm],
       } as VerifyOptions,
     );
     return tokenData;

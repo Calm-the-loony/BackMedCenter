@@ -10,3 +10,5 @@ package.json
 package-lock.json
 eslint.config.ts
 .prettierrc
+cache
+pgdata

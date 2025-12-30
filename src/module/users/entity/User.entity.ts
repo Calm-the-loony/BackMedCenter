@@ -3,12 +3,13 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn, OneToMany,
+  UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 
 import { UserTypes } from "@/utils";
-import {News} from "@/module/news";
-import {Pacients} from "@/module/pacients";
+import { News } from "@/module/news";
+import { Pacients } from "@/module/pacients";
 import { Analyses } from "@/module/analysis";
 
 @Entity({ name: "users" })
@@ -43,17 +44,17 @@ export class User {
   userType!: UserTypes;
 
   @OneToMany(() => News, (news) => news.user)
-  news!: Array<News>
+  news!: Array<News>;
 
-  @OneToMany(() => Pacients, pacient => pacient.pacient)
+  @OneToMany(() => Pacients, (pacient) => pacient.pacient)
   pacients!: Array<Pacients>;
 
-  @OneToMany(() => Pacients, pacient => pacient.doctor)
+  @OneToMany(() => Pacients, (pacient) => pacient.doctor)
   doctors!: Array<Pacients>;
 
-  @OneToMany(() => Analyses, analys => analys.user)
+  @OneToMany(() => Analyses, (analys) => analys.user)
   pacientAnalyses!: Array<Analyses>;
 
-  @OneToMany(() => Analyses, analys => analys.doctor)
+  @OneToMany(() => Analyses, (analys) => analys.doctor)
   doctorAnalysis!: Array<Analyses>;
 }

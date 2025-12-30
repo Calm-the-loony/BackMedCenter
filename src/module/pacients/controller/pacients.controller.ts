@@ -1,15 +1,14 @@
 import { Router } from "express";
 
 class PacientsController {
+  router: Router;
 
-    router: Router;
+  constructor() {
+    this.router = Router();
+    this.initRoutes();
+  }
 
-    constructor() {
-        this.router = Router();
-        this.initRoutes();
-    }
-
-    initRoutes()  {}
+  initRoutes() {}
 }
 
 export const pacientsController = new PacientsController();

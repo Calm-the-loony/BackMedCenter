@@ -1,21 +1,23 @@
 import { Router, Request, Response } from "express";
-import {JwtPayload} from "jsonwebtoken";
+import { JwtPayload } from "jsonwebtoken";
 
 import { authMiddleware } from "@/utils/";
-import {UserService} from "@/module/users";
-
+import { UserService } from "@/module/users";
 
 class UserController {
-    router: Router;
+  router: Router;
 
-    constructor() {
-        this.router = Router();
-        this.initRoutes();
-    }
+  constructor() {
+    this.router = Router();
+    this.initRoutes();
+  }
 
-    initRoutes() {
-        this.router.get("/info", authMiddleware, async (req: Request, res: Response) => {
-            /*
+  initRoutes() {
+    this.router.get(
+      "/info",
+      authMiddleware,
+      async (req: Request, res: Response) => {
+        /*
                 #swagger.method = 'GET'
                 #swagger.tags = ['Users']
                 #swagger.summary = 'Получение информации о пользователе'
@@ -34,10 +36,14 @@ class UserController {
                 }
             */
 
-            return UserController.info(req, res)
-        });
-        this.router.patch("/update-password", authMiddleware, async (req: Request, res: Response) => {
-            /*
+        return UserController.info(req, res);
+      },
+    );
+    this.router.patch(
+      "/update-password",
+      authMiddleware,
+      async (req: Request, res: Response) => {
+        /*
                 #swagger.method = 'PATCH'
                 #swagger.tags = ['Users']
                 #swagger.summary = 'Обновление пароля'
@@ -68,36 +74,40 @@ class UserController {
                 }
             */
 
-            return UserController.updatePassword(req, res);
-        })
+        return UserController.updatePassword(req, res);
+      },
+    );
+  }
+
+  static async info(req: Request & JwtPayload, res: Response) {
+    const user = await UserService.getUserByEmail(req?.token?.email);
+
+    if (user) {
+      return res.status(200).json(user);
     }
 
-    static async info(req: Request & JwtPayload, res: Response) {
-        const user = await UserService.getUserByEmail(req?.token?.email);
+    return res.status(404).json({
+      message: "Пользователь не найден",
+    });
+  }
 
-        if (user) {
-            return res.status(200).json(user);
-        }
+  static async updatePassword(req: Request & JwtPayload, res: Response) {
+    const { new_password } = req.body;
+    const passwordIsUpdated = await UserService.updatePassword(
+      req?.token?.email,
+      new_password,
+    );
 
-        return res.status(404).json({
-            message: 'Пользователь не найден'
-        })
+    if (passwordIsUpdated) {
+      return res.status(200).json({
+        message: "Пароль успешно обновлен",
+      });
     }
 
-    static async updatePassword(req: Request & JwtPayload, res: Response) {
-        const { new_password } = req.body;
-        const passwordIsUpdated = await UserService.updatePassword(req?.token?.email, new_password);
-
-        if (passwordIsUpdated) {
-            return res.status(200).json({
-                message: 'Пароль успешно обновлен'
-            })
-        }
-
-        return res.status(400).json({
-            message: 'Не удалось обновить пароль'
-        })
-    }
+    return res.status(400).json({
+      message: "Не удалось обновить пароль",
+    });
+  }
 }
 
 export const userController = new UserController();

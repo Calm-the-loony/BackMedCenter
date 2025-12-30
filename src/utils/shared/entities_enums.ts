@@ -6,12 +6,12 @@ export enum UserTypes {
 }
 
 export enum NewsTypes {
-  GENERAL = 'GENERAL',
-  MED = 'MED',
-  SOCIAL = 'SOCIAL',
-  EVENTS = 'EVENTS',
-  CONFERENCE = 'CONFERENCE',
-  PERSONAL = 'PERSONAL'
+  GENERAL = "GENERAL",
+  MED = "MED",
+  SOCIAL = "SOCIAL",
+  EVENTS = "EVENTS",
+  CONFERENCE = "CONFERENCE",
+  PERSONAL = "PERSONAL",
 }
 
 export enum StatusPacient {
@@ -19,14 +19,14 @@ export enum StatusPacient {
   SICK = "SICK",
   DEAD = "DEAD",
   UNDEFINED = "UNDEFINED",
-  REMISSION = "REMISSION"
+  REMISSION = "REMISSION",
 }
 
 export enum NewsTranslateTypes {
-  GENERAL = 'главная',
-  MED = 'здоровье',
-  SOCIAL = 'социальные',
-  EVENTS = 'события',
-  CONFERENCE = 'достижения',
-  PERSONAL = 'новости персонала'
+  GENERAL = "главная",
+  MED = "здоровье",
+  SOCIAL = "социальные",
+  EVENTS = "события",
+  CONFERENCE = "достижения",
+  PERSONAL = "новости персонала",
 }

@@ -29,7 +29,7 @@ const doc = {
       message: "Сообщение",
     },
     VerifyUser: {
-      email: 'test_temail@mail.ru'
+      email: "test_temail@mail.ru",
     },
     AuthUserData: {
       email: "test@mail.ru",
@@ -53,41 +53,62 @@ const doc = {
       },
     ],
     CreateNews: {
-      title: 'Заголовок новости',
-      description: 'Описание новости',
+      title: "Заголовок новости",
+      description: "Описание новости",
       type: {
         default: "GENERAL",
-        "@enum": ["GENERAL", "MED", "SOCIAL", "EVENTS", "CONFERENCE", "PERSONAL"]
-      }
+        "@enum": [
+          "GENERAL",
+          "MED",
+          "SOCIAL",
+          "EVENTS",
+          "CONFERENCE",
+          "PERSONAL",
+        ],
+      },
     },
     ClearList: {
       list: [],
-      total: 0
+      total: 0,
     },
     NewsList: {
       list: [
         {
-          title: 'Заголовок новости',
-          description: 'Описание новости',
+          title: "Заголовок новости",
+          description: "Описание новости",
           type: {
             default: "GENERAL",
-            "@enum": ["GENERAL", "MED", "SOCIAL", "EVENTS", "CONFERENCE", "PERSONAL"]
+            "@enum": [
+              "GENERAL",
+              "MED",
+              "SOCIAL",
+              "EVENTS",
+              "CONFERENCE",
+              "PERSONAL",
+            ],
           },
           createdAt: "24-12-2025",
           updatedAt: "24-12-2025",
-        }
+        },
       ],
-      total: 1
+      total: 1,
     },
     NewsFilters: {
-      title: 'Заголовок поиска',
-      description: 'Описание поиска',
+      title: "Заголовок поиска",
+      description: "Описание поиска",
       type: {
         default: "GENERAL",
-        "@enum": ["GENERAL", "MED", "SOCIAL", "EVENTS", "CONFERENCE", "PERSONAL"]
+        "@enum": [
+          "GENERAL",
+          "MED",
+          "SOCIAL",
+          "EVENTS",
+          "CONFERENCE",
+          "PERSONAL",
+        ],
       },
       createdAt: "24-12-2025",
-      updatedAt: "24-12-2025"
+      updatedAt: "24-12-2025",
     },
   },
   host: "localhost:8088",
