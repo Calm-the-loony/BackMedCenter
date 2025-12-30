@@ -14,6 +14,14 @@ export enum NewsTypes {
   PERSONAL = 'PERSONAL'
 }
 
+export enum StatusPacient {
+  HEALTHY = "HEALTHY",
+  SICK = "SICK",
+  DEAD = "DEAD",
+  UNDEFINED = "UNDEFINED",
+  REMISSION = "REMISSION"
+}
+
 export enum NewsTranslateTypes {
   GENERAL = 'главная',
   MED = 'здоровье',
