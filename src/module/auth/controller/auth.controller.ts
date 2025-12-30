@@ -4,119 +4,142 @@ import { UserService } from "@/module/users";
 import { RegUserInfo } from "@/module/auth";
 import { AuthService } from "@/module/auth";
 
-export const authRouter = Router();
 
-authRouter.post("/register", async (req: Request, res: Response) => {
-  /*
-      #swagger.method = 'post'
-      #swagger.tags = ['Auth']
-      #swagger.summary = 'Регистрация пользователя'
-      #swagger.description = 'Регистрация пользователя'
-      #swagger.produces = ['application/json']
-      #swagger.consumes = ['application/json']
+class AuthController {
+  router: Router;
 
-      #swagger.parameters['body'] = {
-          in: 'body',
-          description: 'Пользовательские данные для регистрации',
-          required: true,
-          schema: {
-             $ref: '#/definitions/AuthUserData'
-          }
-      }
-
-      #swagger.responses[201] = {
-          description: 'Пользователь был зарегистрирован',
-          schema: { $ref: '#/definitions/Message' }
-      }
-      #swagger.responses[400] = {
-          description: 'Не удалось зарегистрировать пользователя',
-          schema: { $ref: '#/definitions/Message' }
-      }
-     */
-
-  const userData: RegUserInfo = req.body;
-  const newUser = await UserService.createUser(userData);
-  if (newUser) {
-    return res
-      .status(201)
-      .json({ message: "Пользователь был зарегистрирован" });
+  constructor() {
+      this.router = Router();
+      this.initRoutes();
   }
-});
 
-authRouter.post("/login", async (req: Request, res: Response) => {
-  /*
-        #swagger.method = 'POST'
+  initRoutes(): void {
+    this.router.post("/register", (req, res) => {
+      /*
+        #swagger.method = 'post'
         #swagger.tags = ['Auth']
-        #swagger.summary = 'Авторизация пользователя'
-        #swagger.description = 'Авторизация пользователя с получением токенов'
+        #swagger.summary = 'Регистрация пользователя'
+        #swagger.description = 'Регистрация пользователя'
         #swagger.produces = ['application/json']
         #swagger.consumes = ['application/json']
 
         #swagger.parameters['body'] = {
             in: 'body',
-            description: 'Пользовательские данные для авторизации',
+            description: 'Пользовательские данные для регистрации',
             required: true,
             schema: {
-                $ref: '#/definitions/AuthUserData'
+               $ref: '#/definitions/AuthUserData'
             }
         }
 
+        #swagger.responses[201] = {
+            description: 'Пользователь был зарегистрирован',
+            schema: { $ref: '#/definitions/Message' }
+        }
+        #swagger.responses[400] = {
+            description: 'Не удалось зарегистрировать пользователя',
+            schema: { $ref: '#/definitions/Message' }
+        }
+      */
+
+      return AuthController.register(req, res);
+    });
+    this.router.post("/login", (req, res) => {
+      /*
+          #swagger.method = 'POST'
+          #swagger.tags = ['Auth']
+          #swagger.summary = 'Авторизация пользователя'
+          #swagger.description = 'Авторизация пользователя с получением токенов'
+          #swagger.produces = ['application/json']
+          #swagger.consumes = ['application/json']
+
+          #swagger.parameters['body'] = {
+              in: 'body',
+              description: 'Пользовательские данные для авторизации',
+              required: true,
+              schema: {
+                  $ref: '#/definitions/AuthUserData'
+              }
+          }
+
+          #swagger.responses[200] = {
+            description: 'Пользователь был успешно авторизован',
+            schema: { $refs: '#/definitions/TokensData' }
+          }
+          #swagger.responses[401] = {
+            description: 'Не удалось аутентифицировать пользователя',
+            schema: { $refs: '#/definitions/Message' }
+          }
+      */
+
+      return AuthController.login(req, res);
+    });
+    this.router.post("/me", (req, res) => {
+      /*
+        #swagger.method = 'Post'
+        #swagger.tags = ['Auth']
+        #swagger.summary = 'Проверка аутентифицированного пользователя'
+        #swagger.description = 'Проверка аутентифицированного пользователя путем декодирования токена'
+        #swagger.produces = ['application/json']
+        #swagger.consumes = ['application/json']
+
         #swagger.responses[200] = {
-          description: 'Пользователь был успешно авторизован',
-          schema: { $refs: '#/definitions/TokensData' }
+          description: 'Пользователь был аутентифицирован',
+          schema: { $refs: '#/definitions/VerifyUser' }
         }
         #swagger.responses[401] = {
-          description: 'Не удалось аутентифицировать пользователя',
-          schema: { $refs: '#/definitions/Message' }
+          description: 'Пользователь не прошел аутентификацию',
+          schema: { $refs: '#/definitions/VerifyUser' }
         }
-    */
+      */
 
-  const userData: RegUserInfo = req.body;
-  const [accessToken, refreshToken] = await AuthService.login(userData);
-
-  if (accessToken && refreshToken) {
-    return res.status(200).json({
-      accessToken,
-      refreshToken,
+      return AuthController.me(req, res);
     });
   }
 
-  res.status(401).send({
-    message: "Не удалось аутентифицировать пользователя",
-  });
-});
-
-authRouter.post("/me", async (req: Request, res: Response) => {
-  /*
-    #swagger.method = 'Post'
-    #swagger.tags = ['Auth']
-    #swagger.summary = 'Проверка аутентифицированного пользователя'
-    #swagger.description = 'Проверка аутентифицированного пользователя путем декодирования токена'
-    #swagger.produces = ['application/json']
-    #swagger.consumes = ['application/json']
-
-    #swagger.responses[200] = {
-      description: 'Пользователь был аутентифицирован',
-      schema: { $refs: '#/definitions/VerifyUser' }
+  static register(req: Request, res: Response) {
+    const userData: RegUserInfo = req.body;
+    const newUser = await UserService.createUser(userData);
+    if (newUser) {
+      return res
+          .status(201)
+          .json({ message: "Пользователь был зарегистрирован" });
     }
-    #swagger.responses[401] = {
-      description: 'Пользователь не прошел аутентификацию',
-      schema: { $refs: '#/definitions/VerifyUser' }
-    }
-  */
+  }
 
-  const verifyUser = AuthService.verifyMe((req.headers.authorization ?? '')?.split('Bearer ')[1] ?? '');
-  if (verifyUser) {
-    return res.status(200).json(
+  static login(req: Request, res: Response) {
+
+    const userData: RegUserInfo = req.body;
+    const [accessToken, refreshToken] = await AuthService.login(userData);
+
+    if (accessToken && refreshToken) {
+      return res.status(200).json({
+        accessToken,
+        refreshToken,
+      });
+    }
+
+    res.status(401).send({
+      message: "Не удалось аутентифицировать пользователя",
+    });
+  }
+
+  static me(req: Request, res: Response) {
+    const verifyUser = AuthService.verifyMe((req.headers.authorization ?? '')?.split('Bearer ')[1] ?? '');
+    if (verifyUser) {
+      return res.status(200).json(
+          {
+            message: 'Пользователь был аутентифицирован'
+          }
+      )
+    }
+
+    return res.status(401).json(
         {
-          message: 'Пользователь был аутентифицирован'
+          message: 'Пользователь не прошел аутентификацию'
         }
     )
   }
+}
 
-  return res.status(401).json(
-      {
-        message: 'Пользователь не прошел аутентификацию'
-      }
-  )
-})
+export const authController = new AuthController();

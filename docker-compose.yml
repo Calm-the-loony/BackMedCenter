@@ -23,11 +23,11 @@ services:
       REDIS_URL: redis://med_rd:6379
     networks:
       - med
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data/pgdata
     restart: unless-stopped
     tty: true
     stdin_open: true
+    volumes:
+      - .:/med_app
   med_db:
     container_name: med_db
     image: postgres:18-alpine
@@ -42,6 +42,8 @@ services:
       interval: 20s
       timeout: 10s
       retries: 5
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/pgdata
     networks:
       - med
   med_rd:

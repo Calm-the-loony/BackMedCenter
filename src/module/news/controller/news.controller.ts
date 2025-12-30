@@ -17,7 +17,7 @@ class NewsController {
     }
 
     public initPaths() {
-        newsController.router.post('/create', authMiddleware, async (req, res) => {
+        this.router.post('/create', authMiddleware, async (req, res) => {
             /*
                 #swagger.method = 'POST'
                 #swagger.tags = ['News']
@@ -38,8 +38,7 @@ class NewsController {
 
             return NewsController.create(req, res);
         });
-
-        newsController.router.get('/list', (req, res) => {
+        this.router.get('/list', (req, res) => {
             /*
                 #swagger.method = 'GET'
                 #swagger.tags = ['News']
@@ -71,7 +70,7 @@ class NewsController {
 
             return NewsController.list(req, res);
         });
-        newsController.router.put('/update', authMiddleware, (req, res) => {
+        this.router.put('/update', authMiddleware, (req, res) => {
             /*
                 #swagger.method = 'PUT'
                 #swagger.tags = ['News']
@@ -105,7 +104,7 @@ class NewsController {
 
             return NewsController.update(req, res);
         });
-        newsController.router.delete("/delete", authMiddleware, (req, res) => {
+        this.router.delete("/delete", authMiddleware, (req, res) => {
 
             /*
                 #swagger.method = 'DELETE'

@@ -1,3 +1,15 @@
 import { Router } from "express";
 
-export const pacientsRouter = Router();
+class PacientsController {
+
+    router: Router;
+
+    constructor() {
+        this.router = Router();
+        this.initRoutes();
+    }
+
+    initRoutes()  {}
+}
+
+export const pacientsController = new PacientsController();

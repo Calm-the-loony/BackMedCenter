@@ -1,4 +1,4 @@
-import express from "express";
+import express, {Router} from "express";
 import swaggerUI from "swagger-ui-express";
 import { join, resolve } from "node:path";
 
@@ -6,11 +6,11 @@ import { apiConfig } from "@/conf/apiConfig.js";
 import { dbSource } from "@/db/data-source.js";
 import { postAuthMiddleware } from "@/utils";
 
-import { authRouter } from "@/module/auth";
+import { authController } from "@/module/auth";
 import { newsController } from "@/module/news";
-import { userRouter } from "@/module/users";
-import { pacientsRouter } from "@/module/pacients";
-import { analysRouter } from "@/module/analysis";
+import { userController } from "@/module/users";
+import { pacientsController } from "@/module/pacients";
+import { analysisController } from "@/module/analysis";
 
 const app = express();
 
@@ -22,11 +22,11 @@ app.use(
 );
 
 // Router's
-app.use("/auth", authRouter);
+app.use("/auth", authController.router);
 app.use('/news', newsController.router);
-app.use('/users', userRouter);
-app.use('/analys', analysRouter);
-app.use('/pacients', pacientsRouter);
+app.use('/users', userController.router);
+app.use('/analys', analysisController.router);
+app.use('/pacients', pacientsController.router);
 
 // Post middlewarees
 app.use(postAuthMiddleware);
