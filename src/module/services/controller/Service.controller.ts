@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { authMiddleware } from "@/utils";
+
 import { ClinicType, ClinicTypeService, ConsultService } from "@/module/services";
+import { authMiddleware } from "@/utils";
 import { uploadIcons } from "@/utils/fileManager/storage";
 import { isAdminMiddleware } from "@/utils/middlewares/adminMiddleware";
 

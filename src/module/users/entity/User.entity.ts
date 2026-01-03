@@ -35,6 +35,12 @@ export class User {
   @Column({ type: "varchar", length: 255, nullable: true, default: null })
   studyBuild!: string;
 
+  @Column({ type: "json", nullable: true, default: { days: ['пн']} })
+  dayWork!: { days: ['пн'] };
+
+  @Column({ type: "varchar", length: 50, nullable: true, default: '8:00 - 17:00' })
+  scheduleWork!: string;
+
   @Column({
     type: "varchar",
     length: 255,
