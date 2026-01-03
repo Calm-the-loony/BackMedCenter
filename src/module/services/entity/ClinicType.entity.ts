@@ -6,7 +6,7 @@ import { Service } from "@/module/services/entity/Service.entity";
 import { User } from "@/module/users";
 
 @Entity({ name: "med_type"} )
-export class ClinicType {
+export class ClinicTypeEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

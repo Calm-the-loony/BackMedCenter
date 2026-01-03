@@ -3,7 +3,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, JoinColumn } from "typeorm";
 
 import { User } from "@/module/users";
-import { ClinicType } from "@/module/services/entity/ClinicType";
+import { ClinicTypeEntity } from "@/module/services/entity/ClinicType.entity";
 
 @Entity({ name: "services" })
 export class Service {
@@ -26,9 +26,9 @@ export class Service {
   @Column({ type: "int", nullable: true, default: 0 })
   recDeslike!: number;
 
-  @ManyToOne(() => ClinicType, (clinicType: ClinicType) => clinicType.services)
+  @ManyToOne(() => ClinicTypeEntity, (clinicType: ClinicTypeEntity) => clinicType.services)
   @JoinColumn()
-  clinicType!: ClinicType;
+  clinicType!: ClinicTypeEntity;
 
   @Column({ type: "decimal", nullable: false, default: 2500 })
   price!: number;

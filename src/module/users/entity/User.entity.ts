@@ -12,7 +12,7 @@ import { News } from "@/module/news";
 import { Pacients } from "@/module/pacients";
 import { Analyses } from "@/module/analysis";
 import { Service } from "@/module/services/entity/Service.entity";
-import { ClinicType } from "@/module/services/entity/ClinicType";
+import { ClinicTypeEntity } from "@/module/services/entity/ClinicType.entity";
 
 @Entity({ name: "users" })
 export class User {
@@ -45,9 +45,9 @@ export class User {
   @Column({ type: "enum", enum: UserTypes, default: UserTypes.PACIENT })
   userType!: UserTypes;
 
-  @ManyToOne(() => ClinicType, clinicType => clinicType.doctors)
+  @ManyToOne(() => ClinicTypeEntity, clinicType => clinicType.doctors)
   @JoinColumn()
-  clinicType!: ClinicType;
+  clinicType!: ClinicTypeEntity;
 
   @Column({ type: "text", nullable: true, default: null })
   avatar!: string;
