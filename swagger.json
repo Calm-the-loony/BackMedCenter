@@ -88,6 +88,84 @@
         }
       }
     },
+    "/clinic/create": {
+      "post": {
+        "tags": [
+          "Clinic"
+        ],
+        "summary": "Созданий нового типа услуг",
+        "description": "Добавление нового типа услуг",
+        "consumes": [
+          "name"
+        ],
+        "produces": [
+          "name"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "description": "Название типа"
+          },
+          {
+            "name": "icon",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "Иконка типа"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Новый тип услуг был зарегистирован",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "400": {
+            "description": "Не удалось создать новый тип услуг",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/consult/create": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/review/create": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/attendance/create": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/create": {
       "post": {
         "tags": [

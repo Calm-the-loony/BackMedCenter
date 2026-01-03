@@ -20,7 +20,7 @@ const doc = {
       description: "Модуль авторизации-аутентификации",
     },
     {
-      name: "User",
+      name: "Users",
       description: "Модуль пользователей",
     },
   ],

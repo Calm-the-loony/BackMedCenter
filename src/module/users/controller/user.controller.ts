@@ -23,7 +23,7 @@ class UserController {
                 #swagger.summary = 'Получение информации о пользователе'
                 #swagger.description = 'Получение полной информации о пользователе'
                 #swagger.produces = ['application/json']
-                #swagger.consumes = ['applicaiton/json']
+                #swagger.consumes = ['application/json']
 
                 #swagger.responses[200] = {
                     $ref: '#/definitions/User'

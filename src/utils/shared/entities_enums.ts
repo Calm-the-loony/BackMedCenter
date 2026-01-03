@@ -35,3 +35,8 @@ export enum NewsTranslateTypes {
   CONFERENCE = "достижения",
   PERSONAL = "новости персонала",
 }
+
+export enum FormatTranslateWorks {
+  'OCH' = "очно",
+  'ZOCH' = "заочно"
+}

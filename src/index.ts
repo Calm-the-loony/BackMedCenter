@@ -11,6 +11,7 @@ import { newsController } from "@/module/news";
 import { userController } from "@/module/users";
 import { pacientsController } from "@/module/pacients";
 import { analysisController } from "@/module/analysis";
+import { serviceController } from "@/module/services";
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/news", newsController.router);
 app.use("/users", userController.router);
 app.use("/analys", analysisController.router);
 app.use("/pacients", pacientsController.router);
+app.use("/service", serviceController.router);
 
 // Post middlewarees
 app.use(postAuthMiddleware);

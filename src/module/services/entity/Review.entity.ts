@@ -4,7 +4,7 @@ import { Min, Max } from "class-validator"
 import { User } from "@/module/users";
 
 @Entity({ name: "review" })
-export class Review {
+export class ReviewEntity {
 
   @PrimaryGeneratedColumn()
   id!: number;
