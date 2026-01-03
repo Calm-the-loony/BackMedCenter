@@ -6,9 +6,14 @@ export enum UserTypes {
 }
 
 export enum FormatWorks {
-  'OCH' = "och",
-  'ZOCH' = "zoch",
-  'OTHER' = 'other'
+  OCH = "och",
+  ZOCH = "zoch",
+  OTHER = 'other'
+}
+
+export enum VisitType {
+  VISIT = 'visit',
+  NOTVISIT = 'notvisit'
 }
 
 export enum NewsTypes {

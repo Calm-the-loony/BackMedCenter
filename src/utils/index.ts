@@ -9,6 +9,7 @@ export {
   StatusPacient,
   NewsTypes,
   NewsTranslateTypes,
+  VisitType,
   UserTypes,
   FormatWorks
 } from "./shared/entities_enums.js";

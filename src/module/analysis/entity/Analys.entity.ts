@@ -5,10 +5,12 @@ import {
   Column,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  CreateDateColumn,
   ManyToOne,
   JoinColumn,
 } from "typeorm";
 import { StatusPacient } from "@/utils/shared/entities_enums.js";
+import { Pacients } from "@/module/pacients";
 
 @Entity({ name: "analys" })
 export class Analyses {
@@ -49,9 +51,12 @@ export class Analyses {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  @ManyToOne("User", (user) => user.pacientAnalyses)
-  @JoinColumn({ name: "userId" })
-  user!: Record<string, any>;
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @ManyToOne(() => Pacients, pacient => pacient.analyses)
+  @JoinColumn({ name: "pacientId" })
+  pacient!: Record<string, any>;
 
   @ManyToOne("User", (user) => user.doctorAnalysis)
   @JoinColumn({ name: "doctorId" })
