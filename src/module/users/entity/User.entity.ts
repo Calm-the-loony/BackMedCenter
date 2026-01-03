@@ -13,6 +13,7 @@ import { Pacients } from "@/module/pacients";
 import { Analyses } from "@/module/analysis";
 import { Service } from "@/module/services/entity/Service.entity";
 import { ClinicTypeEntity } from "@/module/services/entity/ClinicType.entity";
+import { Review } from "@/module/services/entity/Review";
 
 @Entity({ name: "users" })
 export class User {
@@ -24,6 +25,15 @@ export class User {
 
   @Column({ type: "text", nullable: false })
   password!: string;
+
+  @Column({ type: "decimal", nullable: true, default: 4.85 })
+  rating!: number;
+
+  @Column({ type: "int", nullable: false })
+  experience!: number;
+
+  @Column({ type: "varchar", length: 255, nullable: true, default: null })
+  studyBuild!: string;
 
   @Column({
     type: "varchar",
@@ -69,4 +79,7 @@ export class User {
 
   @ManyToMany(() => Service, services => services.doctors)
   services!: Array<Record<string, any>>;
+
+  @OneToMany(() => Review, review => review.user)
+  reviews!: Array<Review>;
 }
