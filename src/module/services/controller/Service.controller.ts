@@ -1,12 +1,15 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response } from "express";
 
-import { ClinicType, ClinicTypeService, ConsultService } from "@/module/services";
+import {
+  ClinicType,
+  ClinicTypeService,
+  ConsultService,
+} from "@/module/services";
 import { authMiddleware } from "@/utils";
 import { uploadIcons } from "@/utils/fileManager/storage";
 import { isAdminMiddleware } from "@/utils/middlewares/adminMiddleware";
 
 class ServiceController {
-
   router: Router;
 
   constructor() {
@@ -15,8 +18,13 @@ class ServiceController {
   }
 
   initRoutes() {
-    this.router.post('/clinic/create', authMiddleware, isAdminMiddleware, uploadIcons, (req: Request, res: Response) => {
-      /*
+    this.router.post(
+      "/clinic/create",
+      authMiddleware,
+      isAdminMiddleware,
+      uploadIcons,
+      (req: Request, res: Response) => {
+        /*
         #swagger.method = 'POST'
         #swagger.tags = ['Clinic']
         #swagger.summary = 'Созданий нового типа услуг'
@@ -51,9 +59,10 @@ class ServiceController {
         }
       */
 
-      return ServiceController.createClinic(req, res);
-    });
-    this.router.get('/clinic/list', (req: Request, res: Response) => {
+        return ServiceController.createClinic(req, res);
+      },
+    );
+    this.router.get("/clinic/list", (req: Request, res: Response) => {
       /*
         #swagger.method = 'GET'
         #swagger.tags = ['Clinic']
@@ -79,9 +88,12 @@ class ServiceController {
         }
       */
       return ServiceController.listClinic(req, res);
-    })
-    this.router.post('/consult/create', authMiddleware, (req: Request, res: Response) => {
-      /*
+    });
+    this.router.post(
+      "/consult/create",
+      authMiddleware,
+      (req: Request, res: Response) => {
+        /*
         #swagger.method = 'POST'
         #swagger.tags = ['Consult']
         #swagger.summary = 'Создание консультации'
@@ -111,10 +123,14 @@ class ServiceController {
           }
         }
       */
-      return ServiceController.createConsult(req, res);
-    });
-    this.router.get('/consult/list', isAdminMiddleware, (req: Request, res: Response) => {
-      /*
+        return ServiceController.createConsult(req, res);
+      },
+    );
+    this.router.get(
+      "/consult/list",
+      isAdminMiddleware,
+      (req: Request, res: Response) => {
+        /*
         #swagger.method = 'GET'
         #swagger.tags = ['Consult']
         #swagger.summary = 'Получение всех заявок на консультации'
@@ -138,43 +154,55 @@ class ServiceController {
           }
         }
       */
-      return ServiceController.listConsult(req, res);
-    })
-    this.router.post('/review/create', (req: Request, res: Response) => {
-    });
-    this.router.post('/attendance/create', (req: Request, res: Response) => {
-    })
+        return ServiceController.listConsult(req, res);
+      },
+    );
+    this.router.post("/review/create", (req: Request, res: Response) => {});
+    this.router.post("/attendance/create", (req: Request, res: Response) => {});
   }
 
   static async createClinic(req: Request, res: Response) {
-    const clinicTypeData: ClinicType = { ...req.body, icon: req.file?.filename };
+    const clinicTypeData: ClinicType = {
+      ...req.body,
+      icon: req.file?.filename,
+    };
     const clinicTypeIsCreated = await ClinicTypeService.create(clinicTypeData);
 
     if (clinicTypeIsCreated) {
-      return res.status(201).json({ message: 'Новый тип услуг был зарегистирован' });
+      return res
+        .status(201)
+        .json({ message: "Новый тип услуг был зарегистирован" });
     }
 
-    return res.status(400).json({ message: 'Не удалось создать новый тип услуг' });
+    return res
+      .status(400)
+      .json({ message: "Не удалось создать новый тип услуг" });
   }
 
   static async listClinic(req: Request, res: Response) {
     const allClinics = await ClinicTypeService.all(req.body);
-    return res.status(200).json({list: allClinics[0], total: allClinics[1] });
+    return res.status(200).json({ list: allClinics[0], total: allClinics[1] });
   }
 
   static async createConsult(req: Request, res: Response) {
     const consultIsCreated = await ConsultService.create(req.body);
 
     if (consultIsCreated) {
-      return res.status(201).json({ message: 'Запрос на консультацию был отправлен' });
+      return res
+        .status(201)
+        .json({ message: "Запрос на консультацию был отправлен" });
     }
 
-    return res.status(400).json({ message: 'Не удалось создать запрос на консультацию' })
+    return res
+      .status(400)
+      .json({ message: "Не удалось создать запрос на консультацию" });
   }
 
   static async listConsult(req: Request, res: Response) {
     const allConsults = await ConsultService.all(req.body);
-    return res.status(200).json({list: allConsults[0], total: allConsults[1] });
+    return res
+      .status(200)
+      .json({ list: allConsults[0], total: allConsults[1] });
   }
 }
 

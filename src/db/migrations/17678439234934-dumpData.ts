@@ -1,10 +1,9 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class DumpData17678439234934 implements MigrationInterface {
-  name = '17678439234934-dumpData'
+  name = "17678439234934-dumpData";
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-
     // Внесение данных в таблицу
     await queryRunner.query(
       `INSERT INTO "med_type" ("name", "icon") 
@@ -16,12 +15,12 @@ export class DumpData17678439234934 implements MigrationInterface {
            ('Стоматология', 'icons/stomatology_icon.svg'),
            ('Педиатрия', 'icons/pediatry_icon.svg'),
            ('Диагностика', 'icons/diagnostic_icon.svg')
-           `
+           `,
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.query(`
+    await queryRunner.query(`
         DELETE FROM "med_type" WHERE "name" IN (
           'Терапия',
           'Неврология',
@@ -31,7 +30,6 @@ export class DumpData17678439234934 implements MigrationInterface {
           'Педиатрия',
           'Диагностика'
        )
-      `)
+      `);
   }
-
 }

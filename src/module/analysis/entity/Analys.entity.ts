@@ -54,7 +54,7 @@ export class Analyses {
   @CreateDateColumn()
   createdAt!: Date;
 
-  @ManyToOne(() => Pacients, pacient => pacient.analyses)
+  @ManyToOne(() => Pacients, (pacient) => pacient.analyses)
   @JoinColumn({ name: "pacientId" })
   pacient!: Record<string, any>;
 

@@ -48,7 +48,7 @@ class NewsController {
 
                 #swagger.parameters['body'] = {
                     in: 'body',
-                    description: 'Фильтры доя получения новостей',
+                    description: 'Фильтры для получения новостей',
                     required: false,
                     schema: {
                         $ref: '#/definitions/NewsFilters'

@@ -1,11 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, JoinColumn, Column, ManyToOne, CreateDateColumn } from "typeorm";
-import { Min, Max } from "class-validator"
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+} from "typeorm";
+import { Min, Max } from "class-validator";
 
 import { User } from "@/module/users";
 
 @Entity({ name: "review" })
 export class ReviewEntity {
-
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -17,14 +23,14 @@ export class ReviewEntity {
     nullable: true,
     default: 4,
   })
-  @Min(0, { message: "Рейтинг не может быть меньше 0"})
-  @Max(5, { message: "Рейтинг не может быть больше 5"})
+  @Min(0, { message: "Рейтинг не может быть меньше 0" })
+  @Max(5, { message: "Рейтинг не может быть больше 5" })
   rating!: number;
 
   @CreateDateColumn()
   createdAt!: Date;
 
-  @ManyToOne(() => User, user => user.reviews)
+  @ManyToOne(() => User, (user) => user.reviews)
   @JoinColumn()
   user!: User;
 }

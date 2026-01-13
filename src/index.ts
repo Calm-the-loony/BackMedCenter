@@ -22,7 +22,7 @@ app.use(
   swaggerUI.serve,
   swaggerUI.setup(require(join(resolve(), "swagger.json"))),
 );
-app.use("/static", express.static(join(__dirname, 'public')));
+app.use("/static", express.static(join(__dirname, "public")));
 
 // Router's
 app.use("/auth", authController.router);

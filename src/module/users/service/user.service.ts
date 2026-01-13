@@ -6,7 +6,9 @@ import { RegUserInfo } from "@/module/auth";
 import { hashPassword } from "@/utils/";
 
 export class UserService {
-  protected static repository: Repository<User> = dbSource.getRepository(User);
+  private static get repository(): Repository<User> {
+    return dbSource.getRepository(User);
+  }
 
   static async createUser(userData: RegUserInfo): Promise<User> {
     const newHashedPassword = await hashPassword(userData.password);
@@ -23,7 +25,7 @@ export class UserService {
 
     return Object.fromEntries(
       Object.entries(user as User).filter(
-        ([key, value]) => !["password"].includes(key),
+        ([key, _]) => !["password"].includes(key),
       ),
     );
   }

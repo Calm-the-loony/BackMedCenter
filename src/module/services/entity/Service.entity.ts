@@ -1,13 +1,20 @@
 // @ts-nocheck
 
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, JoinColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  JoinTable,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
 
 import { User } from "@/module/users";
 import { ClinicTypeEntity } from "@/module/services/entity/ClinicType.entity";
 
 @Entity({ name: "services" })
 export class Service {
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -32,7 +39,10 @@ export class Service {
   @Column({ type: "json", nullable: true, default: { in: [] } })
   includesIn: { in: [] };
 
-  @ManyToOne(() => ClinicTypeEntity, (clinicType: ClinicTypeEntity) => clinicType.services)
+  @ManyToOne(
+    () => ClinicTypeEntity,
+    (clinicType: ClinicTypeEntity) => clinicType.services,
+  )
   @JoinColumn()
   clinicType!: ClinicTypeEntity;
 
@@ -43,7 +53,7 @@ export class Service {
   @JoinTable({
     name: "service_doctors",
     joinColumn: { name: "serviceId", referencedColumnName: "id" },
-    inverseJoinColumn: { name: "doctorId", referencedColumnName: "id" }
+    inverseJoinColumn: { name: "doctorId", referencedColumnName: "id" },
   })
   doctors!: Array<Record<string, any>>;
 }

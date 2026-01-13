@@ -1,4 +1,5 @@
 import { dbSource } from "@/db/data-source.js";
+import { Repository } from "typeorm";
 
 import { RegUserInfo } from "@/module/auth";
 import { User } from "@/module/users";
@@ -6,7 +7,9 @@ import { verifyPassword } from "@/utils";
 import { generateToken, TokenType, verifyToken } from "@/utils";
 
 export class AuthService {
-  private static repository = dbSource.getRepository(User);
+  private static get repository(): Repository<User> {
+    return dbSource.getRepository(User);
+  }
 
   static async userIsAdmin(email: string) {
     const user = (await this.repository.findOne({ where: { email } })) as User;

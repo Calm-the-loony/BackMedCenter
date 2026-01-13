@@ -8,12 +8,12 @@ export enum UserTypes {
 export enum FormatWorks {
   OCH = "och",
   ZOCH = "zoch",
-  OTHER = 'other'
+  OTHER = "other",
 }
 
 export enum VisitType {
-  VISIT = 'visit',
-  NOTVISIT = 'notvisit'
+  VISIT = "visit",
+  NOTVISIT = "notvisit",
 }
 
 export enum NewsTypes {
@@ -43,7 +43,7 @@ export enum NewsTranslateTypes {
 }
 
 export enum FormatTranslateWorks {
-  'OCH' = "очно",
-  'ZOCH' = "заочно",
-  'OTHER' = 'очно, заочно'
+  "OCH" = "очно",
+  "ZOCH" = "заочно",
+  "OTHER" = "очно, заочно",
 }

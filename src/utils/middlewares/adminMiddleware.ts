@@ -5,7 +5,7 @@ import { UserService } from "@/module/users";
 export async function isAdminMiddleware(
   req: Request & JwtPayload,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const user = await UserService.getUserByEmail(req.token.email);
@@ -15,6 +15,8 @@ export async function isAdminMiddleware(
 
     throw new Error("Не администратор");
   } catch {
-    return res.status(401).send({ message: 'Действие разрешено только администраторам'})
+    return res
+      .status(401)
+      .send({ message: "Действие разрешено только администраторам" });
   }
 }

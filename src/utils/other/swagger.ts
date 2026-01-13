@@ -3,6 +3,7 @@ import * as path from "node:path";
 
 import { globSync } from "fs";
 import { join, resolve } from "node:path";
+import { StatusPacient } from "@/utils";
 
 const outputFile = path.join(__dirname, "..", "..", "..", "swagger.json");
 const endpointsFiles = globSync(
@@ -113,27 +114,49 @@ const doc = {
     ClinicList: {
       list: [
         {
-          name: 'Тип услуги',
-          icon: '/путь/к изображению'
-        }
+          name: "Тип услуги",
+          icon: "/путь/к изображению",
+        },
       ],
-      total: 1
+      total: 1,
     },
     Consult: {
-      username: 'Андрей Голубцов',
-      сomplaints: 'Колики в животике',
-      phone: '8 988 982 23 23'
+      username: "Андрей Голубцов",
+      сomplaints: "Колики в животике",
+      phone: "8 988 982 23 23",
     },
     ConsultList: {
       list: [
         {
-          username: 'Андрей Голубцов',
-          сomplaints: 'Колики в животике',
-          phone: '8 988 982 23 23'
-        }
+          username: "Андрей Голубцов",
+          сomplaints: "Колики в животике",
+          phone: "8 988 982 23 23",
+        },
       ],
-      total: 1
-    }
+      total: 1,
+    },
+    AnalysisList: {
+      list: [
+        {
+          type: "Тип",
+          text: "Текст",
+          status: StatusPacient.DEAD,
+          assignedDate: "2025-10-10",
+          takenDate: "2025-10-10",
+          readyDate: "2025-10-10",
+          results: { blood: "C+" },
+          costs: 200,
+          updatedAt: "2025-10-11",
+          createdAt: "2025-10-11",
+        },
+      ],
+      total: 1,
+    },
+    AnalysFilters: {
+      type: "кровь",
+      costs: 1025,
+      status: StatusPacient.HEALTHY,
+    },
   },
   host: "localhost:8088",
   schemes: ["http"],

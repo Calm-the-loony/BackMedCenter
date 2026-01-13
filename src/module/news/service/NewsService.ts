@@ -1,4 +1,4 @@
-import { FindOptionsWhere, ILike } from "typeorm";
+import { FindOptionsWhere, ILike, Repository } from "typeorm";
 
 import { dbSource } from "@/db/data-source.js";
 import { News as NewsTable } from "@/module/news";
@@ -8,7 +8,9 @@ import { User } from "@/module/users";
 import { AuthService } from "@/module/auth";
 
 export class NewsService {
-  protected static repository = dbSource.getRepository(NewsTable);
+  private static get repository(): Repository<NewsTable> {
+    return dbSource.getRepository(NewsTable);
+  }
 
   static async createNews(news: News, userData: { email: string }) {
     const user = (await AuthService.userIsAdmin(userData.email)) as User;

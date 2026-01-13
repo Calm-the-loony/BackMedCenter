@@ -4,7 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany, ManyToMany, ManyToOne, JoinColumn,
+  OneToMany,
+  ManyToMany,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
 
 import { UserTypes, FormatWorks } from "@/utils";
@@ -37,10 +40,15 @@ export class User {
   @Column({ type: "varchar", length: 255, nullable: true, default: null })
   studyBuild!: string;
 
-  @Column({ type: "json", nullable: true, default: { days: ['пн']} })
-  dayWork!: { days: ['пн'] };
+  @Column({ type: "json", nullable: true, default: { days: ["пн"] } })
+  dayWork!: { days: ["пн"] };
 
-  @Column({ type: "varchar", length: 50, nullable: true, default: '8:00 - 17:00' })
+  @Column({
+    type: "varchar",
+    length: 50,
+    nullable: true,
+    default: "8:00 - 17:00",
+  })
   scheduleWork!: string;
 
   @Column({
@@ -63,7 +71,7 @@ export class User {
   @Column({ type: "enum", enum: UserTypes, default: UserTypes.PACIENT })
   userType!: UserTypes;
 
-  @ManyToOne(() => ClinicTypeEntity, clinicType => clinicType.doctors)
+  @ManyToOne(() => ClinicTypeEntity, (clinicType) => clinicType.doctors)
   @JoinColumn()
   clinicType!: ClinicTypeEntity;
 
@@ -82,18 +90,18 @@ export class User {
   @OneToMany(() => Pacients, (pacient) => pacient.doctor)
   doctors!: Array<Pacients>;
 
-  @OneToMany(() => PacientPrescriptions, pacPres => pacPres.doctor)
+  @OneToMany(() => PacientPrescriptions, (pacPres) => pacPres.doctor)
   pacientPrescriptions!: Array<PacientPrescriptions>;
 
   @OneToMany(() => Analyses, (analys) => analys.doctor)
   doctorAnalysis!: Array<Analyses>;
 
-  @ManyToMany(() => Service, services => services.doctors)
+  @ManyToMany(() => Service, (services) => services.doctors)
   services!: Array<Record<string, any>>;
 
-  @OneToMany(() => ReviewEntity, review => review.user)
+  @OneToMany(() => ReviewEntity, (review) => review.user)
   reviews!: Array<ReviewEntity>;
 
-  @OneToMany(() => HistoryDiseases, hisDiases => hisDiases.doctor)
+  @OneToMany(() => HistoryDiseases, (hisDiases) => hisDiases.doctor)
   doctorHistoryDiseases!: Array<HistoryDiseases>;
 }

@@ -98,7 +98,10 @@ class AuthController {
   }
 
   static async register(req: Request, res: Response) {
-    const userData: RegUserInfo = { ...req.body, avatar: req.file?.filename ?? "" };
+    const userData: RegUserInfo = {
+      ...req.body,
+      avatar: req.file?.filename ?? "",
+    };
 
     const newUser = await UserService.createUser(userData);
     if (newUser) {

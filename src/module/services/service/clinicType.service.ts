@@ -5,22 +5,27 @@ import { ClinicTypeEntity } from "@/module/services";
 import { ClinicType } from "@/module/services";
 
 export class ClinicTypeService {
-
-  protected static clinicTypeRepository: Repository<ClinicTypeEntity> = dbSource.getRepository(ClinicTypeEntity);
+  private static get repository(): Repository<ClinicTypeEntity> {
+    return dbSource.getRepository(ClinicTypeEntity);
+  }
 
   static async create(data: ClinicType) {
     try {
-      const newClinicType = await this.clinicTypeRepository.create(data);
-      await this.clinicTypeRepository.save(newClinicType);
+      const newClinicType = await this.repository.create(data);
+      await this.repository.save(newClinicType);
       return newClinicType;
     } catch {
       return false;
     }
   }
 
-  static async all(filters: Pick<ClinicType, 'name'>) {
-    return await this.clinicTypeRepository.findAndCount({ where: filters?.name ? {
-        name: ILike(`%${filters.name}%`)
-    } : {}});
+  static async all(filters: Pick<ClinicType, "name">) {
+    return await this.repository.findAndCount({
+      where: filters?.name
+        ? {
+            name: ILike(`%${filters.name}%`),
+          }
+        : {},
+    });
   }
 }

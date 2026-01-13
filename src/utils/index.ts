@@ -11,5 +11,5 @@ export {
   NewsTranslateTypes,
   VisitType,
   UserTypes,
-  FormatWorks
+  FormatWorks,
 } from "./shared/entities_enums.js";

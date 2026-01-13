@@ -5,7 +5,8 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  JoinColumn, OneToMany,
+  JoinColumn,
+  OneToMany,
 } from "typeorm";
 
 import { StatusPacient } from "@/utils/shared/entities_enums.js";
@@ -37,15 +38,18 @@ export class Pacients {
   @JoinColumn({ name: "doctorId" })
   doctor!: Record<string, any>;
 
-  @OneToMany(() => PacientVisit, pcVisit => pcVisit.pacient)
+  @OneToMany(() => PacientVisit, (pcVisit) => pcVisit.pacient)
   visits!: Array<PacientVisit>;
 
-  @OneToMany(() => Analyses, an => an.pacient)
+  @OneToMany(() => Analyses, (an) => an.pacient)
   analyses!: Array<Analyses>;
 
-  @OneToMany(() => PacientPrescriptions, pacPrescription => pacPrescription.pacient)
+  @OneToMany(
+    () => PacientPrescriptions,
+    (pacPrescription) => pacPrescription.pacient,
+  )
   prescriptions!: Array<PacientPrescriptions>;
 
-  @OneToMany(() => HistoryDiseases, hisDiaseases => hisDiaseases.pacient)
+  @OneToMany(() => HistoryDiseases, (hisDiaseases) => hisDiaseases.pacient)
   historyDiseases!: Array<HistoryDiseases>;
 }
